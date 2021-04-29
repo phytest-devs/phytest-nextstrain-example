@@ -16,6 +16,10 @@
       "type": "continuous"
     },
     {
+      "key": "testing",
+      "type": "continuous"
+    },
+    {
       "key": "author",
       "title": "Author",
       "type": "categorical"
