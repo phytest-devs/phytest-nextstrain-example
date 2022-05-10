@@ -8,7 +8,8 @@ dropped_strains = "config/dropped_strains.txt",
 reference = "config/zika_outgroup.gb",
 colors = "config/colors.tsv",
 lat_longs = "config/lat_longs.tsv",
-auspice_config = "config/auspice_config.json"
+auspice_config = "config/auspice_config.json",
+phytest_file = "config/test.py"
 
 rule index_sequences:
     message:
@@ -91,6 +92,20 @@ rule tree:
             --output {output.tree}
         """
 
+rule phytest:
+    message: "Running phytest"
+    input:
+        alignment = rules.align.output.alignment,
+        tree = rules.tree.output.tree,
+        phytest = phytest_file
+    output:
+        report = "results/phytest-report.html"
+    shell:
+        """
+        phytest {input.phytest} -a {input.alignment} -t {input.tree} --report -v
+        mv report.html {output.report}
+        """
+
 rule refine:
     message:
         """
@@ -103,7 +118,8 @@ rule refine:
     input:
         tree = rules.tree.output.tree,
         alignment = rules.align.output,
-        metadata = input_metadata
+        metadata = input_metadata,
+        report = rules.phytest.output.report
     output:
         tree = "results/tree.nwk",
         node_data = "results/branch_lengths.json"
