@@ -5,6 +5,9 @@ This repository provides the data and scripts associated with the [Zika virus tu
 See the [original Zika build repository](https://github.com/nextstrain/zika) for more about the public build.
 
 
+![](dag.svg)
+
+
 # Usage 
 
 Create a conda environment named `nextstrain` and install all the necessary software using mamba:
