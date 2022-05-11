@@ -28,7 +28,6 @@ conda activate nextstrain
 Add the `phytest` dependency.
 
 ```
-# pip install git+https://github.com/phytest-devs/phytest.git
 pip install phytest
 ```
 
