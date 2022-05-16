@@ -6,7 +6,7 @@ This repository provides an example of using [phytest]() for quality control in 
 
 For more information see the [phytest]() docs.
 
-## Testing
+## Phytesting
 
 We have added the following rule to the Snakemake workflow. We use phytest to run our tests on the alignment and the tree, outputting a HTML report. Only if all our tests past will we continue through the pipeline. 
 
