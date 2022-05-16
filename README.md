@@ -28,7 +28,7 @@ rule phytest:
 
 In the `config/test.py` file we define our tests that the alignment and tree must pass. 
 
-```
+```python
 from phytest import Alignment, Sequence, Tree
 
 def test_alignment_size(alignment: Alignment):
@@ -63,7 +63,7 @@ def test_tree_is_SG_monophyletic(tree: Tree):
 
 Create a conda environment named `nextstrain` and install all the necessary software using mamba:
 
-```
+```bash
 mamba create -n nextstrain \
   -c conda-forge -c bioconda \
   nextstrain-cli augur auspice nextalign snakemake git \
@@ -72,13 +72,13 @@ mamba create -n nextstrain \
 
 Activate the conda environment:
 
-```
+```bash
 conda activate nextstrain
 ```
 
 Add the `phytest` dependency.
 
-```
+```bash
 pip install phytest
 ```
 
