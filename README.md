@@ -8,7 +8,7 @@ For more information see the [phytest]() docs.
 
 ## Testing
 
-We have added the following rule to the Snakemake workflow. We use phytest to run our tests on the alignment and the tree, outputting a HTML report. Only if all out tests past will we continue through the pipeline. 
+We have added the following rule to the Snakemake workflow. We use phytest to run our tests on the alignment and the tree, outputting a HTML report. Only if all our tests past will we continue through the pipeline. 
 
 ```yml
 rule phytest:
