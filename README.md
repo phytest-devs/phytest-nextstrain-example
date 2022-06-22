@@ -21,8 +21,7 @@ rule phytest:
         report = "results/phytest-report.html"
     shell:
         """
-        phytest {input.phytest} -a {input.alignment} -t {input.tree} --report
-        mv report.html {output.report}
+        phytest {input.phytest} -a {input.alignment} -t {input.tree} --report {output.report}
         """
 ```
 
