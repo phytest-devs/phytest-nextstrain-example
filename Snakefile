@@ -102,7 +102,7 @@ rule phytest:
         report = "results/phytest-report.html"
     shell:
         """
-        phytest {input.phytest} -a {input.alignment} -t {input.tree} --report
+        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report
         mv report.html {output.report}
         """
 
