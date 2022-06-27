@@ -4,7 +4,7 @@ This repository provides an example of using [phytest](https://github.com/phytes
 
 ![](dag.svg)
 
-For more information see the [phytest]() docs.
+For more information see the [phytest](https://github.com/phytest-devs/phytest) docs.
 
 ## Phytesting
 
@@ -21,7 +21,7 @@ rule phytest:
         report = "results/phytest-report.html"
     shell:
         """
-        phytest {input.phytest} -a {input.alignment} -t {input.tree} --report {output.report}
+        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output.report}
         """
 ```
 
