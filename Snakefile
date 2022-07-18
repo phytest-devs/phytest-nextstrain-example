@@ -99,12 +99,12 @@ rule phytest:
         tree = rules.tree.output.tree,
         phytest = phytest_file
     output:
-        report = "results/phytest-report.html"
+        report = "results/phytest/index.html"
     shell:
         """
-        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report
-        mv report.html {output.report}
+        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output.report}
         """
+
 
 rule refine:
     message:

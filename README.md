@@ -60,25 +60,16 @@ def test_tree_is_SG_monophyletic(tree: Tree):
 
 ## Usage 
 
-Create a conda environment named `nextstrain` and install all the necessary software using mamba:
+Create a conda environment named `nextstrain` and install all the necessary software using conda (or mamba):
 
 ```bash
-mamba create -n nextstrain \
-  -c conda-forge -c bioconda \
-  nextstrain-cli augur auspice nextalign snakemake git \
-  --yes
+conda env create -n nextstrain --file env.yaml
 ```
 
 Activate the conda environment:
 
 ```bash
 conda activate nextstrain
-```
-
-Add the `phytest` dependency.
-
-```bash
-pip install phytest
 ```
 
 Run the pipeline 
