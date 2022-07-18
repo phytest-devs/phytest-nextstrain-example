@@ -5,26 +5,28 @@ on: [push]
 jobs:
   phytest:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     strategy:
       fail-fast: false
     steps:
     - uses: actions/checkout@v2
-    - name: Cache conda
-      uses: actions/cache@v2
-      env:
-        # Increase this value to reset cache if env.yaml has not changed
-        CACHE_NUMBER: 0
-      with:
-        path: ~/conda_pkgs_dir
-        key:
-          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
-          hashFiles('env.yaml') }}
     - uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-environment: anaconda-client-env
-        channel-priority: strict
+        python-version: 3.6
+        mamba-version: "*"
+        channels: conda-forge,defaults
+        channel-priority: true
+        activate-environment: nextstrain
         environment-file: env.yaml
-        use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+    - shell: bash -l {0}
+      run: |
+        conda info
+        conda list
+        conda config --show-sources
+        conda config --show
+        printenv | sort
     - name: Run snakemake
       run: |
         snakemake -c 1
