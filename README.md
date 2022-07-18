@@ -20,7 +20,7 @@ rule phytest:
         tree = rules.tree.output.tree,
         phytest = phytest_file
     output:
-        report = "results/phytest-report.html"
+        report = report("results/phytest-report.html")
     shell:
         """
         phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output.report}
@@ -79,3 +79,11 @@ Run the pipeline
 ```
 snakemake -c 1 
 ```
+
+To generate an HTML report with the Phytest report embedded in it, run this command after the workflow has finished:
+
+```
+snakemake -c 1 --report report.html
+```
+
+Then open the `report.html` in a browser. An example of a this report is generated as part of the [CI for this repository](https://phytest-devs.github.io/phytest-nextstrain-example/).
