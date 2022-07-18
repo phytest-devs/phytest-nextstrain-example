@@ -9,15 +9,23 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Cache conda
+      uses: actions/cache@v2
+      env:
+        # Increase this value to reset cache if env.yaml has not changed
+        CACHE_NUMBER: 0
       with:
-        python-version: '3.10'
-    - name: Install dependencies
-      run: |
-        conda env create -n nextstrain --file env.yaml
-        conda activate nextstrain
-    - name: Run phytest
+        path: ~/conda_pkgs_dir
+        key:
+          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+          hashFiles('env.yaml') }}
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: anaconda-client-env
+        channel-priority: strict
+        environment-file: env.yaml
+        use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+    - name: Run snakemake
       run: |
         snakemake -c 1
     - name: Deploy 🚀
