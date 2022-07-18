@@ -26,7 +26,7 @@ jobs:
         key: conda-${{ runner.os }}--${{ runner.arch }}-${{ hashFiles('env.yaml') }}-${{ env.CACHE_NUMBER }}
       env:
         # Increase this value to reset cache if env.yaml has not changed
-        CACHE_NUMBER: 0
+        CACHE_NUMBER: 1
       id: cache
     - name: Update environment
       run: mamba env update -n nextstrain -f env.yaml
@@ -34,8 +34,10 @@ jobs:
     - name: Run snakemake
       run: |
         snakemake -c 1
+        mkdir results/report
+        snakemake -c 1 --report results/report/index.html
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
         branch: report # The branch the action should deploy to.
-        folder: results/phytest # The folder the action should deploy.
+        folder: results/report # The folder the action should deploy.

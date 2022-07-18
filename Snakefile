@@ -11,6 +11,8 @@ lat_longs = "config/lat_longs.tsv",
 auspice_config = "config/auspice_config.json",
 phytest_file = "config/test.py"
 
+report: "report/workflow.rst"
+
 rule index_sequences:
     message:
         """
@@ -99,10 +101,10 @@ rule phytest:
         tree = rules.tree.output.tree,
         phytest = phytest_file
     output:
-        report = "results/phytest/index.html"
+        report("results/phytest/index.html")
     shell:
         """
-        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output.report}
+        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output}
         """
 
 
@@ -119,7 +121,7 @@ rule refine:
         tree = rules.tree.output.tree,
         alignment = rules.align.output,
         metadata = input_metadata,
-        report = rules.phytest.output.report
+        report = rules.phytest.output
     output:
         tree = "results/tree.nwk",
         node_data = "results/branch_lengths.json"
