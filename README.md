@@ -1,5 +1,7 @@
 # Nextstrain + Phytest
 
+[![CI](https://github.com/phytest-devs/phytest-nextstrain-example/actions/workflows/CI.yaml/badge.svg)](https://phytest-devs.github.io/phytest-nextstrain-example/)
+
 This repository provides an example of using [phytest](https://github.com/phytest-devs/phytest) for quality control in a Snakemake pipeline. Phytest allows us to write tests for our pipeline the same way we write test for our code. This repo builds on the data and scripts associated with the [Zika virus tutorial](https://nextstrain.org/docs/getting-started/zika-tutorial). We add phytest to the pipeline to ensure our alignment and maximum likelihood tree meet our explicit requirements before proceeding though the pipeline.
 
 ![](dag.svg)

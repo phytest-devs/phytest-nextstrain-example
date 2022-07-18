@@ -20,13 +20,18 @@ jobs:
         channel-priority: true
         activate-environment: nextstrain
         environment-file: env.yaml
-    - shell: bash -l {0}
-      run: |
-        conda info
-        conda list
-        conda config --show-sources
-        conda config --show
-        printenv | sort
+    - name: Cache Conda env
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.CONDA }}/envs
+        key: conda-${{ runner.os }}--${{ runner.arch }}-${{ hashFiles('env.yaml') }}-${{ env.CACHE_NUMBER }}
+      env:
+        # Increase this value to reset cache if etc/example-environment.yml has not changed
+        CACHE_NUMBER: 0
+      id: cache
+    - name: Update environment
+      run: mamba env update -n nextstrain -f env.yaml
+      if: steps.cache.outputs.cache-hit != 'true'
     - name: Run snakemake
       run: |
         snakemake -c 1
