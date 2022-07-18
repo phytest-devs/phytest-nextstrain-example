@@ -101,10 +101,10 @@ rule phytest:
         tree = rules.tree.output.tree,
         phytest = phytest_file
     output:
-        report("results/phytest/index.html")
+        report=report("results/phytest/index.html")
     shell:
         """
-        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output}
+        phytest {input.phytest} -s {input.alignment} -t {input.tree} --report {output.report}
         """
 
 
@@ -121,7 +121,7 @@ rule refine:
         tree = rules.tree.output.tree,
         alignment = rules.align.output,
         metadata = input_metadata,
-        report = rules.phytest.output
+        report = rules.phytest.output.report
     output:
         tree = "results/tree.nwk",
         node_data = "results/branch_lengths.json"
